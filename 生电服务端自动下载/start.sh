@@ -4,12 +4,15 @@
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     server_version="${ID}"
+    echo "服务器系统为${ID}"
 elif [ -f /etc/redhat-release ]; then
     distro=$(cat /etc/redhat-release | awk '{print $1}')
     server_version="${distro}"
+    echo "服务器系统为${distro}"
 elif [ -f /etc/debian_version ]; then
     distro="Debian"
     server_version="${distro}"
+    echo "服务器系统为${distro}"
 else
     echo "无法确定Linux发行版版本。"
     exit 1
