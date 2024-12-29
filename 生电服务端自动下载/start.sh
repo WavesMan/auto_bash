@@ -31,7 +31,7 @@ if [ -f "${server_version}" ]; then
     # 设置下载的脚本为可执行
     chmod +x "${server_version}"
     # 执行下载的脚本
-    ./"${server_version}"
+    ./"${server_version}.sh"
 else
     echo "下载失败。请检查URL或您的网络连接。"
     exit 1
