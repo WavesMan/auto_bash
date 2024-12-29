@@ -2,12 +2,13 @@
 
 # 定义相对路径
 BASE_DIR="./生电服务端自动下载"
-VERSION_FILE="$BASE_DIR/version.txt"
+VERSION_FILE="version.txt"
 DOWNLOADS_DIR="$BASE_DIR/downloads"
 
 # 检查version.txt文件是否存在
 if [ ! -f "$VERSION_FILE" ]; then
-    echo "版本文件 $VERSION_FILE 不存在。"
+    echo "版本文件 $VERSION_FILE 不存在，准备下载版本文件"
+    curl -OJ "https://raw.githubusercontent.com/auto-bash/auto_bash/main/生电服务端自动下载/version.txt"
     exit 1
 fi
 
