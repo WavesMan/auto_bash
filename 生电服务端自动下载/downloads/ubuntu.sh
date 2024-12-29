@@ -96,7 +96,7 @@ download_url="https://meta.fabricmc.net/v2/versions/loader/${selected_version}/0
 
 # 下载文件
 echo "正在下载 $download_url ..."
-curl -OJ "$download_url"
+curl -OJ "$download_url"    | at now
 
 # 检查下载是否成功
 if [ $? -eq 0 ]; then
