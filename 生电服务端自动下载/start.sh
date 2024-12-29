@@ -18,6 +18,8 @@ else
     exit 1
 fi
 
+echo "当前服务器版本为${server_version}"
+
 # 转换为小写
 server_version=$(echo "${server_version}" | tr '[:upper:]' '[:lower:]')
 
