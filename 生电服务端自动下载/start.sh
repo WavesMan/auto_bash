@@ -23,7 +23,7 @@ server_version=$(echo "${server_version}" | sed 's/[^a-zA-Z0-9.-]//g')
 
 # 下载对应的脚本
 echo "下载 ${server_version} 脚本..."
-curl -LO "https://github.com/WavesMan/auto_bash/生电服务端自动下载/downloads/${server_version}.sh"
+curl -LO "https://raw.githubusercontent.com/WavesMan/auto_bash/main/生电服务端自动下载/downloads/${server_version}.sh"
 
 # 检查下载是否成功
 if [ -f "${server_version}.sh" ]; then
