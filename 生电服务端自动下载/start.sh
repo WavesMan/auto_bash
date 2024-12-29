@@ -21,9 +21,12 @@ server_version=$(echo "${server_version}" | tr '[:upper:]' '[:lower:]')
 # 清理server_version，确保适合用于文件名
 server_version=$(echo "${server_version}" | sed 's/[^a-zA-Z0-9.-]//g')
 
+# 构造下载URL
+download_url="https://raw.githubusercontent.com/WavesMan/auto_bash/main/生电服务端自动下载/downloads/${server_version}.sh"
+
 # 下载对应的脚本
-echo "下载 ${server_version} 脚本..."
-curl -LO "https://github.com/WavesMan/auto_bash/main/生电服务端自动下载/downloads/${server_version}.sh"
+echo "下载 ${server_version}.sh 脚本..."
+curl -LO "${download_url}"
 
 # 检查下载是否成功
 if [ -f "${server_version}.sh" ]; then
