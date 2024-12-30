@@ -24,6 +24,12 @@ select VERSION in $VERSIONS; do
     fi
 done
 
+# 检查是否选择了有效的版本
+if [[ -z "$VERSION" ]]; then
+    echo "未选择有效的版本，脚本退出."
+    exit 1
+fi
+
 # 提取对应版本的镜像源内容
 MIRRORS_CONTENT=$(awk -v version="$VERSION" '/Ubuntu [0-9]+\.[0-9]+ LTS \('"$VERSION"'\)/,/^$/' "$MIRRORS_FILE")
 
