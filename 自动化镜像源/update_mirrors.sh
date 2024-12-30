@@ -3,7 +3,7 @@
 # 定义文件路径
 VERSION_FILE="ubuntu_version.txt"
 SOURCES_LIST="/etc/apt/sources.list"
-VERSION_FILE_URL="https://raw.githubusercontent.com/auto-bash/auto_bash/main/自动化镜像源/ubuntu_version.txt"
+VERSION_FILE_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/ubuntu_version.txt"
 
 # 检查文件是否存在，如果不存在则下载
 if [ ! -f "$VERSION_FILE" ]; then
@@ -39,7 +39,7 @@ else
 fi
 
 # 构建下载链接
-MIRRORS_URL="https://raw.githubusercontent.com/auto-bash/auto_bash/main/自动化镜像源/mirrors/${SELECTED_VERSION}"
+MIRRORS_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/mirrors/${SELECTED_VERSION}"
 
 # 下载镜像源文件
 echo "正在下载镜像源文件: $MIRRORS_URL"
