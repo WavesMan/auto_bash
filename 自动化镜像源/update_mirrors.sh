@@ -12,26 +12,26 @@ if [[ ! -f "$MIRRORS_FILE" ]]; then
 fi
 
 # 提取可用的Ubuntu版本
-VERSIONS=$(grep -oP 'Ubuntu \K[0-9]+\.[0-9]+ LTS \(\K[^)]+' "$MIRRORS_FILE" | sort -u)
+VERSIONS=($(grep -oP 'Ubuntu \K[0-9]+\.[0-9]+ LTS \(\K[^)]+' "$MIRRORS_FILE" | sort -u))
 
-# 显示可用的版本供用户选择
-echo "可用的Ubuntu版本:"
-select VERSION in $VERSIONS; do
-    if [[ -n "$VERSION" ]]; then
-        break
-    else
-        echo "无效的选择，请重试."
-    fi
+# 显示版本列表并让用户选择
+echo "可用版本:"
+for i in "${!VERSIONS[@]}"; do
+    echo "$(($i+1))) ${VERSIONS[$i]}"
 done
 
-# 检查是否选择了有效的版本
-if [[ -z "$VERSION" ]]; then
-    echo "未选择有效的版本，脚本退出."
+read -p "请选择版本号（输入对应的数字）: " choice
+
+# 检查用户输入是否有效
+if [ "$choice" -eq "$choice" ] 2>/dev/null && [ "$choice" -ge 1 ] && [ "$choice" -le "${#VERSIONS[@]}" ]; then
+    SELECTED_VERSION=${VERSIONS[$((choice-1))]}
+else
+    echo "无效的选择。"
     exit 1
 fi
 
 # 将版本中的空格替换为"-"，用于构建下载链接
-DOWNLOAD_VERSION=$(echo "Ubuntu-${VERSION}" | tr ' ' '-')
+DOWNLOAD_VERSION=$(echo "Ubuntu-${SELECTED_VERSION}" | tr ' ' '-')
 
 # 构建下载链接
 MIRRORS_URL="https://raw.githubusercontent.com/auto-bash/auto_bash/main/自动化镜像源/mirrors/${DOWNLOAD_VERSION}"
