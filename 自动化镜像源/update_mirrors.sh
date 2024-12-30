@@ -39,7 +39,7 @@ else
 fi
 
 # 构建下载链接
-MIRRORS_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/mirrors/${SELECTED_VERSION}"
+MIRRORS_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/mirrors/${SELECTED_VERSION}.txt"
 
 # 下载镜像源文件
 echo "正在下载镜像源文件: $MIRRORS_URL"
