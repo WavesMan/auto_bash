@@ -63,7 +63,8 @@ else
     jdk_version=""
 fi
 
-    # 下载并安装JDK
+# 下载并安装JDK
+if [ -n "$jdk_version" ]; then
     echo "正在下载并安装JDK $jdk_version..."
 
     # 更新包列表
@@ -73,23 +74,22 @@ fi
     if [ "$jdk_version" = "17" ]; then
         sudo apt-get install -y openjdk-17-jdk
     elif [ "$jdk_version" = "21" ]; then
-        # 添加Adoptium仓库
+        # 下载并解压JDK 21
         wget "https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz"
-        mkdir /opt/jdk21
-        tar -xvf jdk-21_linux-x64_bin.tar.gz -C /opt/jdk21
-        cat << EOF > /~/.bashrc
-        export JAVA_HOME=/opt/jdk21/jdk-21
-        export PATH=$PATH:/opt/jdk21/bin
-        EOF
-        source ~/.bashrc    
+        mkdir -p /opt/jdk21
+        tar -xvf jdk-21_linux-x64_bin.tar.gz -C /opt/jdk21 --strip-components=1
 
+        # 设置环境变量
+        echo "export JAVA_HOME=/opt/jdk21" >> ~/.bashrc
+        echo "export PATH=\$PATH:/opt/jdk21/bin" >> ~/.bashrc
+        source ~/.bashrc
     fi
 
     # 设置JAVA_HOME
     if [ "$jdk_version" = "17" ]; then
         export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
     elif [ "$jdk_version" = "21" ]; then
-        export JAVA_HOME=/usr/lib/jvm/temurin-$jdk_version-jdk-amd64
+        export JAVA_HOME=/opt/jdk21
     fi
 
     # 检查安装是否成功
@@ -99,10 +99,6 @@ fi
         echo "JDK $jdk_version 安装失败。"
         exit 1
     fi
-
-    # 清除代理设置
-    unset http_proxy
-    unset https_proxy
 else
     echo "选择的版本号不需要下载JDK。"
 fi
