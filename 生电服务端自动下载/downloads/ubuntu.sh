@@ -80,6 +80,9 @@ if [ -n "$jdk_version" ]; then
         tar -xvf jdk-21_linux-x64_bin.tar.gz -C /opt/jdk21 --strip-components=1
 
         # 设置环境变量
+        echo "" >> ~/.bashrc
+        echo "" >> ~/.bashrc
+        echo "# OpenJDK 21" >> ~/.bashrc
         echo "export JAVA_HOME=/opt/jdk21" >> ~/.bashrc
         echo "export PATH=\$PATH:/opt/jdk21/bin" >> ~/.bashrc
         source ~/.bashrc
