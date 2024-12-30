@@ -43,7 +43,7 @@ MIRRORS_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化
 
 # 下载镜像源文件
 echo "正在下载镜像源文件: $MIRRORS_URL"
-curl -O "$MIRRORS_URL"
+curl -o "$SELECTED_VERSION" "$MIRRORS_URL"
 
 # 检查下载是否成功
 if [[ ! -f "$SELECTED_VERSION" ]]; then
