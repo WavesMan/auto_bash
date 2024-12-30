@@ -1,15 +1,22 @@
 #!/bin/bash
 
-# 定义相对路径
-BASE_DIR="./生电服务端自动下载"
-VERSION_FILE="version.txt"
-DOWNLOADS_DIR="$BASE_DIR/downloads"
+# 定义脚本所在目录
+SCRIPT_DIR="$(dirname "$0")"
+VERSION_FILE="$SCRIPT_DIR/version.txt"
+VERSION_FILE_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/生电服务端自动下载/version.txt"
 
-# 检查version.txt文件是否存在
+# 检查version.txt文件是否存在，如果不存在则下载
 if [ ! -f "$VERSION_FILE" ]; then
-    echo "版本文件 $VERSION_FILE 不存在，准备下载版本文件"
-    curl -OJ "https://raw.githubusercontent.com/auto-bash/auto_bash/main/生电服务端自动下载/version.txt"
-    exit 1
+    echo "版本文件 $VERSION_FILE 不存在，正在从 GitHub 下载..."
+    curl -o "$VERSION_FILE" "$VERSION_FILE_URL"
+
+    # 检查下载是否成功
+    if [ $? -eq 0 ]; then
+        echo "版本文件下载成功，保存到 $VERSION_FILE。"
+    else
+        echo "版本文件下载失败，请检查网络连接或URL是否正确。"
+        exit 1
+    fi
 fi
 
 # 读取版本列表
@@ -96,7 +103,7 @@ download_url="https://meta.fabricmc.net/v2/versions/loader/${selected_version}/0
 
 # 下载文件
 echo "正在下载 $download_url ..."
-curl -OJ "$download_url"    | at now
+curl -OJ "$download_url"
 
 # 检查下载是否成功
 if [ $? -eq 0 ]; then
