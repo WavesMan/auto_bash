@@ -8,7 +8,14 @@ SOURCES_LIST="/etc/apt/sources.list"
 if [[ ! -f "$VERSION_FILE" ]]; then
     echo "错误: 文件 $VERSION_FILE 不存在，准备下载版本文件"
     curl -OJ "https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/ubuntu_version.txt"
-    exit 1
+
+    # 检查下载是否成功
+    if [ $? -eq 0 ]; then
+        echo "版本文件下载成功，保存到 $VERSION_FILE。"
+    else
+        echo "版本文件下载失败，请检查网络连接或URL是否正确。"
+        exit 1
+    fi
 fi
 
 # 读取文件内容到数组
