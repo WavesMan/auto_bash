@@ -63,8 +63,23 @@ else
     jdk_version=""
 fi
 
-# 根据JDK版本安装相应的包
+# 如果不需要下载JDK，跳过代理设置
 if [ -n "$jdk_version" ]; then
+    # 让用户选择是否使用代理
+    read -p "是否使用代理下载 JDK？(y/n): " use_proxy
+    if [[ "$use_proxy" =~ ^[Yy]$ ]]; then
+        echo "请输入代理链接（示例：http://your-proxy-server:port）："
+        read proxy_url
+
+        # 设置代理环境变量
+        export http_proxy="$proxy_url"
+        export https_proxy="$proxy_url"
+        echo "已设置代理：$proxy_url"
+    else
+        echo "不使用代理。"
+    fi
+
+    # 下载并安装JDK
     echo "正在下载并安装JDK $jdk_version..."
 
     # 更新包列表
@@ -94,6 +109,10 @@ if [ -n "$jdk_version" ]; then
         echo "JDK $jdk_version 安装失败。"
         exit 1
     fi
+
+    # 清除代理设置
+    unset http_proxy
+    unset https_proxy
 else
     echo "选择的版本号不需要下载JDK。"
 fi
