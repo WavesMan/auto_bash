@@ -17,4 +17,5 @@ else
 fi
 
 # 返回一次系统代理结果
-env |grep -i proxy
+proxy_setting=$(env |grep -i proxy)
+echo "Proxy setting: $proxy_setting"
