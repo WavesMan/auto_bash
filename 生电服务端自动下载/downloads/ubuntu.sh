@@ -63,22 +63,6 @@ else
     jdk_version=""
 fi
 
-# 如果不需要下载JDK，跳过代理设置
-if [ -n "$jdk_version" ]; then
-    # 让用户选择是否使用代理
-    read -p "是否使用代理下载 JDK？(y/n): " use_proxy
-    if [[ "$use_proxy" =~ ^[Yy]$ ]]; then
-        echo "请输入代理链接（示例：http://your-proxy-server:port）："
-        read proxy_url
-
-        # 设置代理环境变量
-        export http_proxy="$proxy_url"
-        export https_proxy="$proxy_url"
-        echo "已设置代理：$proxy_url"
-    else
-        echo "不使用代理。"
-    fi
-
     # 下载并安装JDK
     echo "正在下载并安装JDK $jdk_version..."
 
@@ -90,9 +74,15 @@ if [ -n "$jdk_version" ]; then
         sudo apt-get install -y openjdk-17-jdk
     elif [ "$jdk_version" = "21" ]; then
         # 添加Adoptium仓库
-        sudo add-apt-repository ppa:adoptium/temux-jdk
-        sudo apt-get update
-        sudo apt-get install -y temurin-$jdk_version-jdk
+        wget "https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz"
+        mkdir /opt/jdk21
+        tar -xvf jdk-21_linux-x64_bin.tar.gz -C /opt/jdk21
+        cat << EOF > /~/.bashrc
+        export JAVA_HOME=/opt/jdk21/jdk-21
+        export PATH=$PATH:/opt/jdk21/bin
+        EOF
+        source ~/.bashrc    
+
     fi
 
     # 设置JAVA_HOME
