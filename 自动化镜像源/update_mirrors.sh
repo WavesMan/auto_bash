@@ -7,7 +7,7 @@ SOURCES_LIST="/etc/apt/sources.list"
 # 检查文件是否存在
 if [[ ! -f "$VERSION_FILE" ]]; then
     echo "错误: 文件 $VERSION_FILE 不存在，准备下载版本文件"
-    curl -OJ "https://raw.githubusercontent.com/auto-bash/auto_bash/main/自动化镜像源/ubuntu_version.txt"
+    curl -OJ "https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/ubuntu_version.txt"
     exit 1
 fi
 
@@ -31,7 +31,7 @@ else
 fi
 
 # 构建下载链接
-MIRRORS_URL="https://raw.githubusercontent.com/auto-bash/auto_bash/main/自动化镜像源/mirrors/${SELECTED_VERSION}.txt"
+MIRRORS_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main//自动化镜像源/mirrors/${SELECTED_VERSION}.txt"
 
 # 下载镜像源文件
 echo "正在下载镜像源文件: $MIRRORS_URL"
