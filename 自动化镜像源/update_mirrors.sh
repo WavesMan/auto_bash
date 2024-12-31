@@ -8,7 +8,7 @@ VERSION_FILE_URL="https://raw.githubusercontent.com/WavesMan/auto_bash/main/自�
 # 检查文件是否存在，如果不存在则下载
 if [ ! -f "$VERSION_FILE" ]; then
     echo "版本文件 $VERSION_FILE 不存在，正在从 GitHub 下载..."
-    curl -o "$VERSION_FILE" "$VERSION_FILE_URL"
+    curl -OL https://raw.githubusercontent.com/WavesMan/auto_bash/main/自动化镜像源/ubuntu_version.txt
 
     # 检查下载是否成功
     if [ $? -eq 0 ]; then
